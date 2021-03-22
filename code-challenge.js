@@ -78,8 +78,6 @@ In addition to letters, digits and some punctuation, there are some special serv
 
 Your task is to implement a function that would take the morse code as input and return a decoded human-readable string. */
 
-// Solution one: 
-
 decodeMorse = function(morseCode){
   const wordsArr = morseCode.split('   ')
 
@@ -99,6 +97,38 @@ decodeMorse = function(morseCode){
   
   // trim() trims spaces from front and back of string
   return wordsArr.join(' ').trim()
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/* Given a string, turn each character into its ASCII character code and join them together to create a number - let's call this number total1. Then replace any incidence of the number 7 with the number 1, and call this number 'total2'. Then return the difference between the sum of the digits in total1 and total2. */
+
+// solution one:
+
+function calc(x){
+  
+  const resultArr = [];
+  
+  for (i = 0; i < x.length; i++) {
+    // MDN: The charCodeAt() method returns an integer between 0 and 65535 representing the UTF-16 code unit at the given index.
+    resultArr.push(x[i].charCodeAt(0))
+  }
+
+  const total1 = resultArr.join('');
+  const total2 = resultArr.join('').split('').map(char => (char === '7') ? char = '1' : char = char).join('');
+  
+  const reduceTotal1 = total1.split('').reduce((acc,currVal) => Number(acc) + Number(currVal));
+  const reduceTotal2 = total2.split('').reduce((acc,currVal) => Number(acc) + Number(currVal));
+  
+  return reduceTotal1 - reduceTotal2
+  
+}
+
+//solution two, using REGEX:
+
+function calc(x){
+  const total = x.split('').map(char => char.charCodeAt(0)).join('');
+  return total.split('').reduce((a,b)=>Number(a)+Number(b)) - total.replace(/7/gi, '1').split('').reduce((a,b)=>Number(a)+Number(b))
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
