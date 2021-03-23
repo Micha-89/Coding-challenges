@@ -132,3 +132,38 @@ function calc(x){
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/* You will be given an array and a limit value. You must check that all values in the array are below or equal to the limit value. If they are, return true. Else, return false.
+
+You can assume all values in the array are numbers. */
+
+function smallEnough(a, limit){
+  let test = true;
+  a.forEach(number => {if(number > limit) test = false})
+  return test
+}
+
+// other solutions: 
+
+function smallEnough(a, limit){
+  // use spread operator to spread out array in Math.max, does not function with array as a param
+  return Math.max(...a) <= limit
+}
+
+// MDN: The every() method tests whether all elements in the array pass the test implemented by the provided function. It returns a Boolean value. (you also have some() which checks if some elements pass a test) 
+smallEnough = (a, l) => a.every(e => e <= l)
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/* A common way to deal with this situation is to remove all of the vowels from the trolls' comments, neutralizing the threat.
+
+Your task is to write a function that takes a string and return a new string with all vowels removed. */
+
+function disemvowel(str) {
+  // [] in regex ->	any of 
+  return str.replace(/[ieaou]/ig, '');
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
