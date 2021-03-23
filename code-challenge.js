@@ -166,4 +166,28 @@ function disemvowel(str) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+function sockMerchant(n, ar) {
+  const testObj = {};
+  ar.forEach(num => (testObj[num] !== undefined) ? testObj[num]++ : testObj[num] = 1);
+  let counter = 0;
+  Object.values(testObj).forEach(amount => counter += Math.floor(amount/2));
+  return counter
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/* Create a function that takes a positive integer and returns the next bigger number that can be formed by rearranging its digits. If the digits can't be rearranged to form a bigger number, return -1. */
+
+function nextBigger(n){
+  const sortedNum = JSON.stringify(n).split('').sort((a,b) => b - a).join('');
+  if(sortedNum === JSON.stringify(n)) return -1;
+  // MDN: The global property Infinity is a numeric value representing infinity.
+  for(i = n +1; i < Infinity; i++) {
+    if(JSON.stringify(i).split('').sort((a,b) => b - a).join('') === sortedNum) return i;
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
