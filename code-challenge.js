@@ -236,3 +236,16 @@ function duplicateCount(text){
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/* Given a string of characters find the first character that occurs only once.*/
+
+function firstOccurance(s) {
+  const compareObj = {};
+  for(i=0; i < s.length; i++) {
+    (compareObj[s[i]] === undefined) ? compareObj[s[i]] = 1 : compareObj[s[i]]++;
+  }
+  const firstIndex = Object.values(compareObj).indexOf(1);
+  return Object.keys(compareObj)[firstIndex]
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
