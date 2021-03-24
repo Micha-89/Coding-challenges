@@ -226,3 +226,13 @@ function topThreeWords(text) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/* Write a function that will return the count of distinct case-insensitive alphabetic characters and numeric digits that occur more than once in the input string. The input string can be assumed to contain only alphabets (both uppercase and lowercase) and numeric digits. */
+
+function duplicateCount(text){
+  const compareObj = {};
+  text.split('').forEach(el => compareObj[el.toLowerCase()] == undefined ? compareObj[el.toLowerCase()] = 1 : compareObj[el.toLowerCase()]++);
+  return Object.entries(compareObj).filter(el => el[1] > 1).length;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
