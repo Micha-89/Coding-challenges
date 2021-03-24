@@ -189,5 +189,40 @@ function nextBigger(n){
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/* Move the first letter of each word to the end of it, then add "ay" to the end of the word. Leave punctuation marks untouched. Punctuation marks are always seperated by a space from the words.*/
 
+//my solution:
 
+function pigIt(str){
+  return str.split(' ').map(word => { if (word !== '!' && word !== '?' && word !== '.') { return word.slice(1) +  word.slice(0,1) + 'ay'; } return word;}).join(' ');
+ }
+
+//other solutions: 
+
+function pigIt(str){
+  //MDN: The test() method tests for a match in a string. This method returns true if it finds a match, otherwise it returns false.
+  return str.split(' ').map(word => (/[a-zA-Z]/).test(word) ? `${word.slice(1)}${word[0]}ay` : word).join(' ')
+}
+
+function pigIt(str){
+  //MDN: The match() method retrieves the result of matching a string against a regular expression.
+  //MDN: The substr() method returns a portion of the string, starting at the specified index and extending for a given number of characters afterwards.
+  return str.split(" ").map(word => word.match(/[A-z]/i) ? `${word.substr(1)}${word[0]}ay` : word).join(" ")
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/* Write a function that, given a string of text (possibly with punctuation and line-breaks), returns an array of the top-3 most occurring words, in descending order of the number of occurrences. */
+
+function topThreeWords(text) {
+  const cleanedArr = text.trim().replace(/[.,:/]/gi, '').replace(/  |   /gi, ' ').toLowerCase().split(' ').filter(word => word !== '' && word !== '\'')
+  const compareObj = {};
+  cleanedArr.forEach(word => (compareObj[word] === undefined) ? compareObj[word] = 1 : compareObj[word]++);
+  //MDN: The Object.entries() method returns an array of a given object's own enumerable string-keyed property [key, value] pairs
+  const sortedArr = Object.entries(compareObj).sort((a,b) => b[1] - a[1]);
+  const resultsArr = [];
+  for(i=0; i < 3; i++) {if (sortedArr[i] !== undefined) resultsArr.push(sortedArr[i][0])};
+  return resultsArr;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
