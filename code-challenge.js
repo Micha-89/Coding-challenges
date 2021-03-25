@@ -248,6 +248,30 @@ function firstOccurance(s) {
   return Object.keys(compareObj)[firstIndex]
 }
 
+//other solutions: 
+
+function FirstUniqueCharacter(s){
+  for (let i = 0; i<s.length; i++){
+    let j = s.charAt(i)
+    // MDN: The lastIndexOf() method returns the index within the calling String object of the last occurrence of the specified value, searching backwards from fromIndex. Returns -1 if the value is not found.
+    if (s.indexOf(j) == s.lastIndexOf(j)){
+      return j; 
+    }
+  }  
+}
+
+function findCharacter(str) {
+  // using reduce to create an object with data from array!
+  const charOccObj = str.split("").reduce((obj, char) => {
+    obj[char] = obj[char] === undefined ? 1 : obj[char] + 1;
+    return obj;
+  }, {})
+  // looping over object using (for let ....(key) in ....(object name))
+  for (let key in charOccObj) {
+    if (charOccObj[key] === 1) return key;
+  }
+} 
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /* There is a narrow hallway in which people can go right and left only. When two people meet in the hallway, by tradition they must salute each other. People move at the same speed left and right.
