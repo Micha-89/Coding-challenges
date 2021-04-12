@@ -354,7 +354,7 @@ function createUniquePairs(array) {
 
 // Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 
-// solution one:
+// solution one, indexof:
 
 function returnPositionsOfSum (array,target) {
   for (let i = 0; i < array.length; i++) {
@@ -366,7 +366,7 @@ function returnPositionsOfSum (array,target) {
   return null;
 }
 
-// solution two:
+// solution two, nested loop:
 
 const findTwoSum = (nums, target) => {
   for(let i = 0; i < nums.length; i++) {
@@ -377,5 +377,29 @@ const findTwoSum = (nums, target) => {
   }
   return null;
 }
+
+/* Big O of solution two
+time complexity: O(n^2) quadratic => nested loop
+space complexity: O(1) constant => declaration of three variables that are all O(1)
+*/
+
+// solution three using hashmap aka object: 
+
+const findTwoSum = (nums, target) => {
+  const numsMap = {};
+  for(let i = 0; i < nums.length; i++) {
+    const currentMapVal = numsMap[nums[i]];
+    if(currentMapVal !== undefined) return [currentMapVal, i];
+    const numberToFind = target - nums[i];
+    numsMap[numberToFind] = i;
+  }
+  return null;
+}
+
+/* Big O of solution three 
+time complexity: O(n) => one loop
+space complexity: O(n) => create key value pair untill it finds a match, worst case for each int in array
+compared to solution two: bring down time complexity by bringing up space complexity
+*/
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
