@@ -397,9 +397,66 @@ const findTwoSum = (nums, target) => {
 }
 
 /* Big O of solution three 
-time complexity: O(n) => one loop
-space complexity: O(n) => create key value pair untill it finds a match, worst case for each int in array
+time complexity: O(n) linear => one loop
+space complexity: O(n) linear => create key value pair untill it finds a match, worst case for each int in array
 compared to solution two: bring down time complexity by bringing up space complexity
 */
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// given 2 arrays (no size limit) check if they contain common items
+// return true if they do, false if they dont
+
+
+// naive/brute force solution, best to avoid because of nested loop based on two different arrays that might be different in length O(a*b) time complexity, (O(n^2) is for nested loops with same array)
+const checkIfCommonItems = (array1, array2) => {
+  for( let i = 0; i < array1.length; i++) {
+    for( let j = 0; j < array2.length; j++) {
+      if(array1[i] === array2[j]) return true;
+    }
+  }
+  return false;
+}
+
+// better time complexitiy O(a + b), space complexity is worse from O(1) to O(a)
+const checkIfCommonItems = (array1, array2) => {
+  const compareObject = {};
+  array1.forEach(char => compareObject[char] = true);
+  for (let i = 0; i < array2.length; i++) {
+    if(compareObject[array2[i]] === true) return true;
+  }
+  return false;
+}
+
+// short version that is more readable, but nested loops: 
+
+const checkIfCommonItems = (arr1, arr2) => {
+  return arr1.some(item => arr2.includes(item));
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// The goal of this exercise is to convert a string to a new string where each character in the new string is "(" if that character appears only once in the original string, or ")" if that character appears more than once in the original string. Ignore capitalization when determining if a character is a duplicate.
+
+function duplicateEncode(word){
+  const compareObj = {};
+  for (let i = 0; i < word.length; i++) {
+    const letter = word[i].toLowerCase();
+    if(compareObj[letter] === undefined) {
+      compareObj[letter] = 1;
+    } else {
+      compareObj[letter] =  compareObj[letter] + 1;
+    }
+  }
+  const resultArr = [];
+  for (let j = 0; j < word.length; j++) {
+    if(compareObj[word[j].toLowerCase()] > 1) resultArr.push(')');
+    if(compareObj[word[j].toLowerCase()] === 1) resultArr.push('(');
+  }
+  return resultArr.join('')
+}
+
+// time complexity O(n) two for loops length depends on length string
+// space complexity O(n) create an object with key value pares depent on length string
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
