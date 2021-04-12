@@ -289,4 +289,93 @@ function countSalutes(hallway) {
   return encounters * 2
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Big O scalability introduction (time complexity): 
+// check if array contains 'Nemo'
+
+// O(n) => linear time
+
+// MDN: The Array() constructor is used to create Array objects.
+// arrayLength: If the only argument passed to the Array constructor is an integer between 0 and 232-1 (inclusive), this returns a new JavaScript array with its length property set to that number 
+
+const large = new Array(10000).fill('nemo');
+
+function findNemo(array) {
+  // MDN: The performance.now() method returns a DOMHighResTimeStamp, measured in milliseconds
+  let t0 = performance.now();
+  for(let i = 0; i < array.length; i++) {
+    if (array[i] === 'nemo') {
+      console.log('found Nemo')
+    }
+  }
+  let t1 = performance.now();
+  console.log('call to find Nemo took ' + (t1-t0) + ' miliseconds');
+}
+
+// instead of measuring time with performance.now() (runtime) you can measure the number of operations (big O). Big O notation of above function is O(n) => linear time = number of operations depends on number of inputs, in this case array length
+
+//O(1) Constant time = number of operations stays the same no matter how many elements (flat line on graph)
+function compressFirstBox(boxes) {
+  console.log(boxes[0])
+}
+
+// 6 operations but comes down to O(1) constant time, number of operations stays the same no matter input
+function compressFirstBox(boxes) {
+  console.log(boxes[0])
+  console.log(boxes[1])
+  console.log(boxes[2])
+  console.log(boxes[3])
+  console.log(boxes[4])
+  console.log(boxes[5])
+}
+
+// nested loops => O(n^2) linear to the power of two = quadratic time (horrible in the Big O graph, slow)
+
+// example O(n^2): create unique pairs from an array of strings
+
+function createUniquePairs(array) {
+  const duplicatePairs = [];
+  for(let i = 0; i < array.length; i++) {
+    for(let j = 0; j < array.length; j++) {
+      if ( i !== j) {
+        duplicatePairs.push([array[i], array[j]])
+      }
+    }
+  }
+  const sortedDuplicatePairs = duplicatePairs.map(pair => pair.sort()).map(pair => pair.join(' '));
+  // Set is a new data object introduced in ES6. Because Set only lets you store unique values. When you pass in an array, it will remove any duplicate values.
+  const uniquePairs = [... new Set(sortedDuplicatePairs)];
+  
+  return uniquePairs
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+// solution one:
+
+function returnPositionsOfSum (array,target) {
+  for (let i = 0; i < array.length; i++) {
+    const difference = target - array[i];
+    if(array.indexOf(difference, i+1) !== -1) {
+      return [i , array.indexOf(difference, i+1)]
+    }
+  }
+  return null;
+}
+
+// solution two:
+
+const findTwoSum = (nums, target) => {
+  for(let i = 0; i < nums.length; i++) {
+    const numberToFind = target - nums[i];
+    for(let j = i + 1; j < nums.length; j++) {
+      if(nums[j] === numberToFind) return [i,j]
+    }
+  }
+  return null;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
