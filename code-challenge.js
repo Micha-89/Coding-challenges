@@ -442,21 +442,91 @@ function duplicateEncode(word){
   const compareObj = {};
   for (let i = 0; i < word.length; i++) {
     const letter = word[i].toLowerCase();
-    if(compareObj[letter] === undefined) {
-      compareObj[letter] = 1;
-    } else {
-      compareObj[letter] =  compareObj[letter] + 1;
-    }
+    (compareObj[letter] === undefined) ? compareObj[letter] = 1 : compareObj[letter] += 1;
   }
   const resultArr = [];
   for (let j = 0; j < word.length; j++) {
-    if(compareObj[word[j].toLowerCase()] > 1) resultArr.push(')');
-    if(compareObj[word[j].toLowerCase()] === 1) resultArr.push('(');
+    const lookedUpLetter = compareObj[word[j].toLowerCase()];
+    (lookedUpLetter > 1) ? resultArr.push(')') : resultArr.push('(');
   }
   return resultArr.join('')
 }
 
 // time complexity O(n) two for loops length depends on length string
 // space complexity O(n) create an object with key value pares depent on length string
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// reverse a string
+
+function reverse(str) {
+  if(typeof str !== 'string') return 'invalid input, function requires string';
+  const wordsArr = str.split(' ');
+  const reversedWordsArr = wordsArr.map(word => word.split('').reverse().join(''));
+  return reversedWordsArr.reverse().join(' ')
+}
+
+// super short version: 
+
+const reverseString = str => [...str].reverse().join('');
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// given two sorted arrays, create one big array that is sorted
+
+const mergeSortedArray = (arr1, arr2) => [...arr1 , ...arr2].sort((a,b) => a - b);
+
+// with removing duplicates:
+
+function mergeSortedArray (arr1, arr2) {
+  const mergedSorted = [...arr1 , ...arr2].sort((a,b) => a - b);
+  return [...new Set(mergedSorted)];
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements. without making copy of array
+
+var moveZeroes = function(nums) {
+  let counterZeros = 0; 
+  for(let i = 0; i < nums.length; i++) {
+    if(nums[i] === 0) {
+      nums.splice(i,1);
+      i--;
+      counterZeros++;
+    }
+  }
+  for(let j = 0; j < counterZeros; j++){
+    nums.push(0);
+  }
+  return nums;
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Given an array, rotate the array to the right by k steps, where k is non-negative.
+
+// naive solution, bad time complecity: 
+
+var rotate = function(nums, k) {
+  for(let i = 0; i < k; i++) {
+    const popedNum = nums.pop();
+    nums.unshift(popedNum);
+  }
+  return nums;
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/* Have the function LongestWord(sen) take the sen parameter being passed and return the longest word in the string. If there are two or more words that are the same length, return the first word from the string with that length. Ignore punctuation and assume sen will not be empty. Words may also contain numbers, for example "Hello world123 567". Do not take ! and & into account */
+
+function LongestWord(sen) { 
+  sen = sen.replace(/[!&]/gi, '');
+  const wordsArr = sen.split(' ');
+  const lengthWordArr = [...wordsArr].map(word => word.length);
+  const longestWordLength = Math.max(...lengthWordArr);
+  const indexLongestWord = lengthWordArr.indexOf(longestWordLength);
+  return wordsArr[indexLongestWord];                                         
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
